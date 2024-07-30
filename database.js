@@ -1,15 +1,9 @@
 const { Sequelize} = require('sequelize');
 const path = require("path")
 
-// const sequelize = new Sequelize('tododb', 'root', '', {
-//     host: 'localhost',
-//     dialect: 'mysql'
-//   });
-
-
 const sequelize = new Sequelize({
     dialect: "sqlite" , 
-    storage : path.join(__dirname , ".." , "todoApplication.db"),
+    storage : path.join(__dirname , "." , "todoApplication.db"),
     //logging : false
   });
 
@@ -27,8 +21,4 @@ const sequelize = new Sequelize({
 
 
 module.exports = sequelize;
-//sequelize.close()
-
-//sequelize.query("select * from todo")
-
 
