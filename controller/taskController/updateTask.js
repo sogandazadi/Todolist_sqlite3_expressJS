@@ -1,4 +1,4 @@
-const Task = require("../model/todo");
+const Task = require("../../model/todo");
 
 exports.updateTaskById = async (req, res) => {
     try {
@@ -15,7 +15,6 @@ exports.updateTaskById = async (req, res) => {
         case update_elements.status !== undefined:
         updated_attribute =  "Status"
         task.set({ status: update_elements.status });
-        console.log(update_elements.status)
         break
         case update_elements.priority !== undefined:
         updated_attribute = "Priority"
@@ -30,8 +29,7 @@ exports.updateTaskById = async (req, res) => {
         res.json({ message: `${updated_attribute} updated successfully`, task });
       }
     } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("An error occurred" + "\n" + error.message);
     }
   };
 

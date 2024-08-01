@@ -1,4 +1,4 @@
-const Task = require("../model/todo");
+const Task = require("../../model/todo");
 
 exports.deleteTaskById = async (req, res) => {
     try {
@@ -11,7 +11,6 @@ exports.deleteTaskById = async (req, res) => {
         res.send('Task deleted successfully');
       }
     } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send("An error occurred" + "\n" + error.message);
     }
   };

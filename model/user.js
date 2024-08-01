@@ -18,12 +18,6 @@ const User = sequelize.define(
         allowNull: false
     }
    },
-    {
-    timestamps: false,
-    }
 )
 
 module.exports = User;
-
-console.log(sequelize.models.users)
-console.log(User === sequelize.models.users);

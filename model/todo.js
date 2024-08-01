@@ -31,13 +31,6 @@ const Task = sequelize.define(
         allowNull: false
       },
     },
-    {
-        timestamps: false,
-    }
 );
-
-
-// User.hasMany(Task);
-// Task.belongsTo(User);
 
 module.exports = Task;

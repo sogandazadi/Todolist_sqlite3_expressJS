@@ -1,4 +1,4 @@
-const User = require("../model/user")
+const User = require("../../model/user")
 
 exports.create_user = async (req , res) => {
     try{
@@ -6,8 +6,7 @@ exports.create_user = async (req , res) => {
         const user = await User.create({firstName , lastName})
         res.json({message : "User Added Successfully" , user})
     }
-    catch(err){
-        res.status(500).send("Internal server Error")
-        console.log(err)
+    catch(error){
+        res.status(500).send("An error occurred" + "\n" + error.message);
     }
 };
