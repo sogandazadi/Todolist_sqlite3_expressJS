@@ -1,4 +1,5 @@
 const { DataTypes , Model } = require('sequelize');
+const User = require("./user")
 const sequelize = require("../database")
 
 const Task = sequelize.define(
@@ -21,11 +22,15 @@ const Task = sequelize.define(
         type:DataTypes.TEXT,
         allowNull: false
       },
-      
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User, 
+          key: 'ID',
+        },
+        allowNull: false
+      },
     },
-    {
-      timestamps: false,
-      }
 );
 
 module.exports = Task;

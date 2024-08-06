@@ -4,7 +4,7 @@ const path = require("path")
 const sequelize = new Sequelize({
     dialect: "sqlite" , 
     storage : path.join(__dirname , "." , "todoApplication.db"),
-    logging : false
+    //logging : false
   });
 
 // async function test_connection(){
