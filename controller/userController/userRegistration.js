@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 const dotenv = require("dotenv").config();
 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET , { expiresIn: "30m" });
+    return jwt.sign({ id }, process.env.JWT_SECRET , { expiresIn: "1h" });
   };
 
 exports.registerUser = asyncHandler(async (req, res) => {
@@ -20,10 +20,10 @@ exports.registerUser = asyncHandler(async (req, res) => {
     const usernameExists = await User.findOne({ where : {username : username}});
     
     if (emailExists) {
-        res.status(400).send("Email alreday exist");
+        res.status(409).send("Email alreday exist");
     }
     else if(usernameExists ){
-        res.status(400).send("username already taken")
+        res.status(409).send("username already taken")
     }
     
     // create hash password
@@ -39,18 +39,15 @@ exports.registerUser = asyncHandler(async (req, res) => {
         hashedPassword,
     });
 
-    const token = generateToken(user.id);
-    user.token = token;
-    await user.save();
-
     if (user) {
+        const token = generateToken(user.id);
+        res.cookie("token" , token , {httpOnly:true , secure:process.env.NODE_ENV === "production" ,sameSite:"strict" , maxAge: 30 * 60 * 1000});
         res.status(201).json({
         _id: user.id,
         firstName,
         lastName,
         username,
         email,
-        token
         });
 
       } else {

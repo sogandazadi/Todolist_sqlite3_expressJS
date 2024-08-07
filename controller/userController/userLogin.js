@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 const dotenv = require("dotenv").config();
 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET , { expiresIn: "30m" });
+    return jwt.sign({ id }, process.env.JWT_SECRET , { expiresIn: "1h" });
   };
 
 exports.userLogin = asyncHandler(async (req, res) => {
@@ -20,15 +20,13 @@ exports.userLogin = asyncHandler(async (req, res) => {
   
     if (user && (await bcrypt.compare(password , user.hashedPassword))) {
       const token = generateToken(user.id);
-      user.token = token;
-      await user.save();
+      res.cookie("token" , token , {httpOnly:true , secure:process.env.NODE_ENV === "production" ,sameSite:"strict" , maxAge: 30 * 60 * 1000});
 
       res.json({
         _id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        token
       });
     } else {
       res.status(400).send("Invalid credentials");

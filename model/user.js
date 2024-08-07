@@ -30,10 +30,6 @@ const User = sequelize.define(
     hashedPassword: {
         type: DataTypes.STRING(64),
    },
-   token: { 
-        type: DataTypes.TEXT 
-    },
-
   }
 )
 

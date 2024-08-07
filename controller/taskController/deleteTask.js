@@ -4,7 +4,7 @@ exports.deleteTaskById = async (req, res) => {
     try {
       const task_id = req.params.todoId;
       const task = await Task.findByPk(task_id);
-      if (!task) {
+      if (!task || task.user_id!== req.user.id) {
         res.status(404).send('Task not found');
       } else {
         await task.destroy();

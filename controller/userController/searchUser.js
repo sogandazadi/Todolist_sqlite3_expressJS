@@ -1,7 +1,7 @@
 const User = require("../../model/user");
 const Task = require("../../model/todo")
 
-exports.search_user = async (req, res) => {
+exports.searchUser = async (req, res) => {
   try{
     const userId = req.params.ID;
     const user = await User.findByPk(userId);

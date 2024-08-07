@@ -1,0 +1,6 @@
+const asyncHandler = require('express-async-handler')
+
+exports.userLogout = asyncHandler(async (req , res) => {
+    res.cookie("token" , "" , {httpOnly:true , secure:process.env.NODE_ENV === "production" ,sameSite:"strict" , maxAge:0});
+    res.json({message: "Logged out successfully"})
+})
